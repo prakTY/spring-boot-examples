@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-boot-3.0-demo
+  profiles:
+    active: dev
+
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
