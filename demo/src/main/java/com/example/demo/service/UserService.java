@@ -14,7 +14,10 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+        return users.stream()
+                .filter(user -> user.getId() != null && user.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
     public void createUser(User user) {
@@ -31,6 +34,6 @@ public class UserService {
     }
     
     public void deleteUser(Long id) {
-        users.removeIf(user -> user.getId().equals(id));
+        users.removeIf(user -> user.getId() != null && user.getId().equals(id));
     }
 }

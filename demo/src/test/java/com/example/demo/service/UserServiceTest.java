@@ -1,10 +1,12 @@
 package com.example.demo.service;
  
 import com.example.demo.model.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserServiceTest {
     @Autowired
     private UserService userService;
+    
+    @AfterEach
+    public void cleanup() {
+        List<User> users = new ArrayList<>(userService.getAllUsers());
+        for (User user : users) {
+            userService.deleteUser(user.getId());
+        }
+    }
     
     @Test
     public void testGetAllUsers() {

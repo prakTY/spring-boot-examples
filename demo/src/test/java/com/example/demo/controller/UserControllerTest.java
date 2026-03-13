@@ -3,9 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -14,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ComponentScan(basePackages = "com.example.demo")
 public class UserControllerTest {
     
     @Autowired
@@ -21,6 +24,12 @@ public class UserControllerTest {
     
     @Autowired
     private UserService userService;
+    
+    @BeforeEach
+    public void setup() {
+        userService.createUser(new User(1L, "张三", 25, "zhangsan@example.com"));
+        userService.createUser(new User(2L, "李四", 30, "lisi@example.com"));
+    }
     
     @Test
     public void testGetAllUsers() throws Exception {
